@@ -18,11 +18,11 @@ export class Tab1Page implements OnInit {
   ];
 
   produtosDestaq: any = [
-    { destaque: '/assets/imgProduto/arroz.jpg', preco: '29,90', nome: 'Arroz tio joao 10kg' , marca: 'Tio João', qtd: '10Kg'},
-    { destaque: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g', marca: 'União', qtd: '500g'},
-    { destaque: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' , marca: 'Prata', qtd:'1'},
-    { destaque: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L' , marca: 'Piracanjuba', qtd:'1L' },
-    { destaque: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg' , marca: 'União', qtd: '1Kg'},
+    { destaque: '/assets/imgProduto/arroz.jpg', preco: '29,90', nome: 'Arroz tio joao 10kg', marca: 'Tio João', qtd: '10Kg', disponivel: '20' },
+    { destaque: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g', marca: 'União', qtd: '500g', disponivel: '20' },
+    { destaque: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata', marca: 'Prata', qtd: '1', disponivel: '20' },
+    { destaque: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L', marca: 'Piracanjuba', qtd: '1L', disponivel: '20' },
+    { destaque: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg', marca: 'União', qtd: '1Kg', disponivel: '20' },
   ]
 
   produtosPromocoes: any = [
@@ -45,6 +45,7 @@ export class Tab1Page implements OnInit {
 
   ngOnInit(): void {
     console.log(this.produtosDestaq)
+
     this.iniciarIntervalo()
 
   }
@@ -57,6 +58,7 @@ export class Tab1Page implements OnInit {
     this.intervalo = setInterval(() => {
       this.nextImg(1)
     }, 4000);
+
   }
 
   nextImg(tipo: number) {
@@ -90,19 +92,34 @@ export class Tab1Page implements OnInit {
     this.iniciarIntervalo()
   }
 
-
-  
-  abrirModal(index: number) {
-    this.dialog.open(ModalTab1,{
-    width: '100vw',
-    height: '420px',
-    data: this.produtosDestaq[index],
-    exitAnimationDuration: 0,
-    enterAnimationDuration: 0,
-    })
-    console.log('aaaaaaaa')
+  abrirModal(index: number, tipo: number) {
+    this.produtosDestaq.tipo = tipo
+    this.modal(index, tipo)
   }
 
+
+
+  modal(index: number, tipo: number) {
+    if (tipo === 1) {
+      this.dialog.open(ModalTab1, {
+        width: '100vw',
+        height: '420px',
+        data: { dados: this.produtosDestaq[index], tipoModal: tipo },
+        exitAnimationDuration: 0,
+        enterAnimationDuration: 0,
+      })
+
+    } else if (tipo === 2) {
+      this.dialog.open(ModalTab1, {
+        width: '100vw',
+        height: '200px',
+        data: { dados: this.produtosDestaq[index], tipoModal: tipo },
+        exitAnimationDuration: 0,
+        enterAnimationDuration: 0,
+      })
+    }
+
+  }
 
 }
 
@@ -125,7 +142,8 @@ export class ModalTab1 implements OnInit {
   }
 
   lerProdutos() {
-    this.produtos = [this.data]
+    this.produtos = [this.data.dados]
+    console.log(this.data)
   }
 
   fecharModal() {
