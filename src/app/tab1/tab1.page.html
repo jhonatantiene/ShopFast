@@ -1,17 +1,135 @@
-<ion-header [translucent]="true">
+<ion-header> <!-- COMEÇO HEADER -->
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+    <div class="modoRow">
+
+      <div id="conteudoMenu">
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+      </div>
+      <div class="divSearchBar">
+        <ion-searchbar placeholder="Pesquise seu produto" color="secundary"></ion-searchbar>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header> <!-- FIM HEADER -->
+
+<ion-menu contentId="conteudoMenu"> <!-- COMEÇO CONTEUDO DO MENU -->
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <div style="padding-left: 15px;">
+        <ion-title>Menu</ion-title>
+      </div>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content>
+
+    <ion-item button>
+      <ion-label>Meus dados</ion-label>
+    </ion-item>
+
+    <ion-item button>
+      <ion-label>Meus pedidos</ion-label>
+    </ion-item>
+
+    <ion-item button>
+      <ion-label>Fale conosco</ion-label>
+    </ion-item>
+
+    <ion-item button>
+      <ion-label>Configurações</ion-label>
+    </ion-item>
+
+    <ion-item button>
+      <ion-label>Sair</ion-label>
+    </ion-item>
+
+  </ion-content>
+</ion-menu> <!-- FIM CONTEUDO DO MENU -->
+
+<ion-content>
+
+  <div><!-- COMEÇO CONTEUDO PRINCIPAL-->
+
+    <ion-card class="container-slide"> <!-- COMECO DO SLIDE PRINCIPAL -->
+
+      <ion-icon name="chevron-back-outline" size="large" class="slideLeft" (click)="previousImg()"></ion-icon>
+
+      <ion-icon name="chevron-forward-outline" size="large" class="slideRight" (click)="nextImg(2)"></ion-icon>
+
+      <img *ngFor="let image of imagens; let i = index"  src="{{image.src}}" [ngClass]="{'selected': i === linhaAtual }">
+
+    </ion-card> <!-- FIM DO SLIDE PRINCIPAL -->
+
+  </div><!-- FIM CONTEUDO PRINCIPAL-->
+
+  <div>
+    <div class="destaqVermais">
+      <div><b>Destaque</b></div>
+      <span>Ver mais</span>
+    </div>
+    <div class="cardDestaque1" >
+      <div class="cardDestaque2" *ngFor="let destaq of produtosDestaq; let i = index" >
+        <ion-card class="cardDestaque3">
+          <ion-img src="{{destaq.destaque}}"  class="img" (click)="abrirModal(i)"></ion-img>
+            <div (click)="abrirModal(i)">{{destaq.nome}}</div>
+          <div class="cardDestaque4">
+            <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
+            <ion-button color="warning">
+              <ion-icon name="cart-outline" ></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="destaqVermais">
+      <div><b>Promoções</b></div>
+      <span>Ver mais</span>
+    </div>
+    <div class="cardDestaque1">
+      <div class="cardDestaque2" *ngFor="let destaq of produtosPromocoes">
+        <ion-card class="cardDestaque3">
+          <ion-img src="{{destaq.promocoes}}" class="img"></ion-img>
+            <div class="">{{destaq.nome}}</div>
+          <div class="cardDestaque4">
+            <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
+            <ion-button color="warning">
+              <ion-icon name="cart-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="destaqVermais">
+      <div><b>Todos os produtos</b></div>
+      <span>Ver mais</span>
+    </div>
+    <div class="cardDestaque1">
+      <div class="cardDestaque2" *ngFor="let destaq of produtosDestaq">
+        <ion-card class="cardDestaque3">
+          <ion-img src="{{destaq.destaque}}" class="img"></ion-img>
+            <div class="">{{destaq.nome}}</div>
+          <div class="cardDestaque4">
+            <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
+            <ion-button color="warning" >
+              <ion-icon name="cart-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

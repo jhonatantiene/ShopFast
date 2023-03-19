@@ -1,0 +1,49 @@
+.img {
+    width: 100%;
+    padding: 5px;
+    height: 180px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.404);
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    outline: 0;
+}
+
+*{
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ion-header {
+    padding-left: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.divPrincipal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.divPrincipal .item-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divInfoProd ion-item  {
+    display: flex;
+    justify-content: center;
+    row-gap: 10px;
+}

@@ -1,0 +1,140 @@
+.modoRow {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+}
+
+.modoRow .divSearchBar {
+    width: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.container-slide {
+    display: flex;
+    height: 180px;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 0;
+    align-items: center;
+}
+
+.slideLeft {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+}
+
+.slideRight {
+    position: absolute;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+}
+
+.selected {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    animation: sliderAnimation 800ms;
+}
+
+@keyframes sliderAnimation {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.destaqVermais {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.destaqVermais div {
+    font-size: large;
+    color: rgba(32, 32, 32, 0.66);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.destaqVermais span {
+    font-size: normal;
+    color: rgba(0, 0, 0, 0.58);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.cardDestaque1 {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    touch-action:pan-y, pan-x;
+}
+
+.cardDestaque2 {
+    padding: 5px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+
+.cardDestaque3 {
+    flex: none;
+    height: 250px;
+    width: 180px;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.315);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cardDestaque3 .img {
+    height: 125px;
+}
+
+.cardDestaque3 div {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.cardDestaque4 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.cardDestaque4 .span1 {
+    color: black;
+    font-size: large;
+}
+
+.cardDestaque4 .span2 {
+    color: rgb(0, 174, 0);
+    font-size: large;
+}
+
+
+

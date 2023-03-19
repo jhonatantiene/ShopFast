@@ -1,0 +1,42 @@
+<ion-content>
+    <div>
+        <ion-header>
+            <h5>Informações do produto</h5>
+            <button (click)="fecharModal()"> 
+                X
+            </button>
+        </ion-header>
+
+        <div class="divPrincipal" *ngFor="let prod of produtos">
+
+        <ion-item class="item-img">
+            <ion-img class="img" src="{{prod.destaque}}"></ion-img>
+        </ion-item>
+
+        <div class="divInfoProd">
+
+            <ion-item>
+                <div><b>Nome:</b></div>
+                <span>‎ ‎{{prod.nome}}</span>
+            </ion-item>
+
+            <ion-item>
+                <span><b>Marca:</b></span>
+                <span>‎ ‎{{prod.marca}}</span>
+            </ion-item>
+
+            <ion-item>
+                <span><b>Quantidade:</b></span>
+                <span>‎ ‎{{prod.qtd}}</span>
+            </ion-item>
+
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+
+</ion-content>
