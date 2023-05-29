@@ -1,0 +1,35 @@
+.div1 {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+    width: 100%;
+}
+
+.div2 {
+    width: 100%;
+    padding: 20px;
+}
+
+.div3 {
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.botaoLogin {
+    width: 100%;
+}
+
+.botaoCadastrar {
+    width: 100%;
+}
+
+.div2 ion-input {
+    margin-bottom: 25px;
+    border: solid 2px rgb(255, 217, 0);
+}
+
+.div2 ion-button{
+    margin-bottom: 10px;
+}
