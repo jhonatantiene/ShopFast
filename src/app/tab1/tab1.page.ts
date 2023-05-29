@@ -33,21 +33,13 @@ export class Tab1Page implements OnInit {
     { promocoes: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
   ]
 
-
-
-
   linhaAtual: number = 0;
   intervalo: any = undefined;
 
-  constructor(public dialog: MatDialog) {
-
-  }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.produtosDestaq)
-
     this.iniciarIntervalo()
-
   }
 
   resetarIntervalo() {
@@ -58,7 +50,6 @@ export class Tab1Page implements OnInit {
     this.intervalo = setInterval(() => {
       this.nextImg(1)
     }, 4000);
-
   }
 
   nextImg(tipo: number) {
@@ -97,8 +88,6 @@ export class Tab1Page implements OnInit {
     this.modal(index, tipo)
   }
 
-
-
   modal(index: number, tipo: number) {
     if (tipo === 1) {
       this.dialog.open(ModalTab1, {
@@ -118,9 +107,7 @@ export class Tab1Page implements OnInit {
         enterAnimationDuration: 0,
       })
     }
-
   }
-
 }
 
 @Component({
@@ -131,9 +118,7 @@ export class Tab1Page implements OnInit {
 
 export class ModalTab1 implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>) {
-
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>) { }
 
   produtos: any;
 
@@ -149,5 +134,4 @@ export class ModalTab1 implements OnInit {
   fecharModal() {
     this.dialogRef.close()
   }
-
 }
