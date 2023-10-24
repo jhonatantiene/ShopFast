@@ -1,0 +1,36 @@
+.conteudoPrincipal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.conteudoPrincipal ion-card {
+    height: 130px;
+    border: 0;
+    padding: 0;
+}
+
+.conteudoPrincipal ion-card img {
+    position: absolute;
+    z-index: 1;
+    transition-duration: 300ms;
+}
+
+.conteudoPrincipal ion-card img:hover {
+    transform: scale(1.05);
+    transition-duration: 300ms;
+}
+
+.conteudoPrincipal ion-card ion-title {
+    background-color: rgba(0, 0, 0, 0.434);
+    color: aliceblue;
+    text-align: center;
+    position: absolute;
+    padding: 10px;
+    width: 100%;
+    z-index: 2;
+}
