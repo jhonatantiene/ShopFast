@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrudService} from '../serviços/crud.service';
 
 @Component({
   selector: 'app-tab3',
@@ -8,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class Tab3Page implements OnInit {
   pedidos: any[] = ['1'];
 
-  constructor() {}
+  constructor(private crud: CrudService, ) {}
 
   ngOnInit(): void {
-    
+    this.getData()
+  }
+
+  getData() {
+    this.crud.carrinho.read().subscribe(res => {
+      console.log(res)
+    })
   }
 
 }
