@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CrudService } from '../serviços/crud.service';
 
 @Component({
   selector: 'app-tab1',
@@ -36,10 +37,17 @@ export class Tab1Page implements OnInit {
   linhaAtual: number = 0;
   intervalo: any = undefined;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public crud: CrudService) { }
 
   ngOnInit(): void {
     this.iniciarIntervalo()
+    this.addCart()
+  }
+
+  addCart() {
+    this.crud.carrinho.update().subscribe(res => {
+      console.log(res)
+    })
   }
 
   resetarIntervalo() {
@@ -134,4 +142,5 @@ export class ModalTab1 implements OnInit {
   fecharModal() {
     this.dialogRef.close()
   }
+
 }
