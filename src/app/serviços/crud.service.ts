@@ -13,6 +13,6 @@ export class CrudService {
     read: (param: any = []) => { return this.http.post(environment.address + environment.port + '/carrinho/read', param) },
     create: (param: any) => { return this.http.post(environment.address + environment.port + '/carrinho/create', param) },
     update: (param: any = []) => { return this.http.post(environment.address + environment.port + '/carrinho/update', param) },
-    delete: (param: any = []) => { },
+    delete: (param: any = []) => { return this.http.post(environment.address + environment.port + '/carrinho/delete:id', param) },
   }
 }
