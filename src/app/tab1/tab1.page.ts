@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CrudService } from '../serviços/crud.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tab1',
@@ -37,7 +38,7 @@ export class Tab1Page implements OnInit {
   linhaAtual: number = 0;
   intervalo: any = undefined;
 
-  constructor(public dialog: MatDialog, public crud: CrudService) { }
+  constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar) { }
 
   ngOnInit(): void {
     this.iniciarIntervalo()
@@ -45,7 +46,7 @@ export class Tab1Page implements OnInit {
   }
 
   addCart() {
-    this.crud.carrinho.update().subscribe(res => {
+    this.crud.carrinho.create({}).subscribe(res => {
       console.log(res)
     })
   }
@@ -107,14 +108,24 @@ export class Tab1Page implements OnInit {
       })
 
     } else if (tipo === 2) {
-      this.dialog.open(ModalTab1, {
+      const dialogRef = this.dialog.open(ModalTab1, {
         width: '100vw',
-        height: '200px',
-        data: { dados: this.produtosDestaq[index], tipoModal: tipo },
+        height: '380px',
+        data: {
+          dados: this.produtosDestaq[index], tipoModal: tipo
+        },
         exitAnimationDuration: 0,
         enterAnimationDuration: 0,
       })
+      dialogRef.afterClosed().subscribe(res => {
+        if (res === true) {
+          this.snake.open('Produto adicionado no seu carrinho!','Fechar', {
+            duration: 3000
+          })
+        }
+      })
     }
+
   }
 }
 
@@ -129,18 +140,33 @@ export class ModalTab1 implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>) { }
 
   produtos: any;
+  qtdProd: number = 1
 
   ngOnInit(): void {
     this.lerProdutos()
   }
 
+  aumentarQtd() {
+    this.qtdProd++
+  }
+
+  diminuirQtd() {
+    if (this.qtdProd > 1) {
+      this.qtdProd--
+    }
+  }
+
   lerProdutos() {
     this.produtos = [this.data.dados]
-    console.log(this.data)
+    console.log('aaaa', this.produtos)
   }
 
   fecharModal() {
-    this.dialogRef.close()
+    this.dialogRef.close(false)
+  }
+
+  addCart() {
+    this.dialogRef.close(true)
   }
 
 }
