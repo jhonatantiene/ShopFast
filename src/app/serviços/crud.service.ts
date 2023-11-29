@@ -9,6 +9,10 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
+  produtos = {
+    read: (param: any = []) => { return this.http.post(environment.address + environment.port + '/produtos/read', param) },
+  }
+
   carrinho = {
     read: (param: any = []) => { return this.http.post(environment.address + environment.port + '/carrinho/read', param) },
     create: (param: any) => { return this.http.post(environment.address + environment.port + '/carrinho/create', param) },

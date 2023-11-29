@@ -19,21 +19,9 @@ export class Tab1Page implements OnInit {
 
   ];
 
-  produtosDestaq: any = [
-    { destaque: '/assets/imgProduto/arroz.jpg', preco: '29,90', nome: 'Arroz tio joao 10kg', marca: 'Tio João', qtd: '10Kg', disponivel: '20' },
-    { destaque: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g', marca: 'União', qtd: '500g', disponivel: '20' },
-    { destaque: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata', marca: 'Prata', qtd: '1', disponivel: '20' },
-    { destaque: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L', marca: 'Piracanjuba', qtd: '1L', disponivel: '20' },
-    { destaque: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg', marca: 'União', qtd: '1Kg', disponivel: '20' },
-  ]
-
-  produtosPromocoes: any = [
-    { promocoes: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L' },
-    { promocoes: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
-    { promocoes: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg' },
-    { promocoes: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g' },
-    { promocoes: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
-  ]
+  produtosDestaq: any = []
+  produtosPromocoes: any = []
+  todosProdutos: any = []
 
   linhaAtual: number = 0;
   intervalo: any = undefined;
@@ -42,12 +30,19 @@ export class Tab1Page implements OnInit {
 
   ngOnInit(): void {
     this.iniciarIntervalo()
-    this.addCart()
+    this.produtos()
   }
 
-  addCart() {
-    this.crud.carrinho.create({}).subscribe(res => {
-      console.log(res)
+  produtos() {
+    this.crud.produtos.read().subscribe((res: any) => {
+      res.map((v: any) => {
+        this.todosProdutos.push(v)
+        if (v.promocao == 1) {
+          this.produtosPromocoes.push(v)
+        } else if (v.promocao == 0) {
+          this.produtosDestaq.push(v)
+        }
+      })
     })
   }
 
@@ -119,7 +114,7 @@ export class Tab1Page implements OnInit {
       })
       dialogRef.afterClosed().subscribe(res => {
         if (res === true) {
-          this.snake.open('Produto adicionado no seu carrinho!','Fechar', {
+          this.snake.open('Produto adicionado no seu carrinho!', 'Fechar', {
             duration: 3000
           })
         }
