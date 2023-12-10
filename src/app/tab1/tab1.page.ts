@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CrudService } from '../serviços/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-tab1',
@@ -132,7 +133,7 @@ export class Tab1Page implements OnInit {
 
 export class ModalTab1 implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>, private crud: CrudService, private storage: Storage) { }
 
   produtos: any;
   qtdProd: number = 1
@@ -153,15 +154,20 @@ export class ModalTab1 implements OnInit {
 
   lerProdutos() {
     this.produtos = [this.data.dados]
-    console.log('aaaa', this.produtos)
   }
 
   fecharModal() {
     this.dialogRef.close(false)
   }
 
-  addCart() {
+  async addCart() {
+    await this.storage.create()
+    // (await this.storage.keys()).length + 1
+    this.storage.set('0', this.produtos)
     this.dialogRef.close(true)
+    // let allKeys = await this.storage.keys()
+    const itemsPromises = (await this.storage.get('0'))
+    console.log(itemsPromises)
   }
 
 }
