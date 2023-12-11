@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CrudService } from '../serviços/crud.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-tab1',
@@ -19,35 +20,34 @@ export class Tab1Page implements OnInit {
 
   ];
 
-  produtosDestaq: any = [
-    { destaque: '/assets/imgProduto/arroz.jpg', preco: '29,90', nome: 'Arroz tio joao 10kg', marca: 'Tio João', qtd: '10Kg', disponivel: '20' },
-    { destaque: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g', marca: 'União', qtd: '500g', disponivel: '20' },
-    { destaque: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata', marca: 'Prata', qtd: '1', disponivel: '20' },
-    { destaque: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L', marca: 'Piracanjuba', qtd: '1L', disponivel: '20' },
-    { destaque: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg', marca: 'União', qtd: '1Kg', disponivel: '20' },
-  ]
-
-  produtosPromocoes: any = [
-    { promocoes: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L' },
-    { promocoes: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
-    { promocoes: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg' },
-    { promocoes: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g' },
-    { promocoes: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
-  ]
+  produtosDestaq: any = []
+  produtosPromocoes: any = []
+  todosProdutos: any = []
 
   linhaAtual: number = 0;
   intervalo: any = undefined;
+  itensCarrinho: any = 0
 
-  constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar) { }
 
-  ngOnInit(): void {
+  constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar, private storage: Storage) { }
+
+  async ngOnInit() {
     this.iniciarIntervalo()
-    this.addCart()
+    await this.produtos()
+    await this.getItens()
+    console.log(this.itensCarrinho)
   }
 
-  addCart() {
-    this.crud.carrinho.create({}).subscribe(res => {
-      console.log(res)
+  async produtos() {
+    this.crud.produtos.read().subscribe((res: any) => {
+      res.map((v: any) => {
+        this.todosProdutos.push(v)
+        if (v.promocao == 1) {
+          this.produtosPromocoes.push(v)
+        } else if (v.promocao == 0) {
+          this.produtosDestaq.push(v)
+        }
+      })
     })
   }
 
@@ -117,9 +117,10 @@ export class Tab1Page implements OnInit {
         exitAnimationDuration: 0,
         enterAnimationDuration: 0,
       })
-      dialogRef.afterClosed().subscribe(res => {
+      dialogRef.afterClosed().subscribe(async res => {
         if (res === true) {
-          this.snake.open('Produto adicionado no seu carrinho!','Fechar', {
+          await this.getItens()
+          this.snake.open('Produto adicionado no seu carrinho!', 'Fechar', {
             duration: 3000
           })
         }
@@ -127,6 +128,22 @@ export class Tab1Page implements OnInit {
     }
 
   }
+
+
+  async getItens() {
+    /// pegando todos os itens do localStorage
+    await this.storage.create();
+    let totalItens = (await this.storage.keys()).length
+    let value: any = []
+
+    for (let i = 1; i <= totalItens; i++) {
+      this.storage.get(i.toString()).then(v => {
+        value.push(v)
+      })
+      this.itensCarrinho = i
+    }
+  }
+
 }
 
 @Component({
@@ -137,7 +154,7 @@ export class Tab1Page implements OnInit {
 
 export class ModalTab1 implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ModalTab1>, private crud: CrudService, private storage: Storage) { }
 
   produtos: any;
   qtdProd: number = 1
@@ -156,17 +173,21 @@ export class ModalTab1 implements OnInit {
     }
   }
 
-  lerProdutos() {
+  async lerProdutos() {
     this.produtos = [this.data.dados]
-    console.log('aaaa', this.produtos)
   }
 
   fecharModal() {
     this.dialogRef.close(false)
   }
 
-  addCart() {
+  async addCart() {
+    /// criando itens no localStorage
+    await this.storage.create();
+    let contador = (await this.storage.keys()).length + 1
+    this.storage.set(contador.toString(), this.produtos)
     this.dialogRef.close(true)
   }
+
 
 }

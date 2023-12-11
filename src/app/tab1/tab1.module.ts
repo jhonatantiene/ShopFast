@@ -7,6 +7,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 
@@ -19,7 +20,8 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     Tab1PageRoutingModule,
     MatDialogModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    IonicStorageModule.forRoot()
   ],
   declarations: [Tab1Page, ModalTab1]
 })

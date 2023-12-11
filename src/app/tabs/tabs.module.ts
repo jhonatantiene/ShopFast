@@ -7,12 +7,15 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 
+import {MatBadgeModule} from '@angular/material/badge';
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    MatBadgeModule
   ],
   declarations: [TabsPage]
 })
