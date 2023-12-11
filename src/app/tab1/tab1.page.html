@@ -13,7 +13,7 @@
         </ion-header>
       </div>
       <div class="divSearchBar">
-        <ion-searchbar placeholder="Pesquise seu produto" color="secundary"></ion-searchbar>
+        <ion-searchbar placeholder="Pesquise aqui..."></ion-searchbar>
       </div>
     </div>
   </ion-toolbar>
@@ -68,7 +68,7 @@
 
       <ion-icon name="chevron-forward-outline" size="large" class="slideRight" (click)="nextImg(2)"></ion-icon>
 
-      <img *ngFor="let image of imagens; let i = index"  src="{{image.src}}" [ngClass]="{'selected': i === linhaAtual }">
+      <img *ngFor="let image of imagens; let i = index" src="{{image.src}}" [ngClass]="{'selected': i === linhaAtual }">
 
     </ion-card> <!-- FIM DO SLIDE PRINCIPAL -->
 
@@ -79,15 +79,15 @@
       <div><b>Destaque</b></div>
       <span>Ver mais</span>
     </div>
-    <div class="cardDestaque1" >
-      <div class="cardDestaque2" *ngFor="let destaq of produtosDestaq; let i = index" >
+    <div class="cardDestaque1">
+      <div class="cardDestaque2" *ngFor="let destaq of produtosDestaq; let i = index">
         <ion-card class="cardDestaque3">
-          <ion-img src="{{destaq.destaque}}"  class="img" (click)="abrirModal(i, 1)"></ion-img>
-            <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
+          <ion-img src="{{destaq.destaque}}" class="img" (click)="abrirModal(i, 1)"></ion-img>
+          <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
           <div class="cardDestaque4">
             <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
             <ion-button color="warning" (click)="abrirModal(i, 2)">
-              <ion-icon name="cart-outline" ></ion-icon>
+              <ion-icon name="cart-outline"></ion-icon>
             </ion-button>
           </div>
         </ion-card>
@@ -104,7 +104,7 @@
       <div class="cardDestaque2" *ngFor="let destaq of produtosPromocoes; let i = index">
         <ion-card class="cardDestaque3">
           <ion-img src="{{destaq.promocoes}}" class="img" (click)="abrirModal(i, 1)"></ion-img>
-            <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
+          <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
           <div class="cardDestaque4">
             <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
             <ion-button color="warning" (click)="abrirModal(i, 2)">
@@ -125,7 +125,7 @@
       <div class="cardDestaque2" *ngFor="let destaq of produtosDestaq; let i = index">
         <ion-card class="cardDestaque3">
           <ion-img src="{{destaq.destaque}}" class="img" (click)="abrirModal(i, 1)"></ion-img>
-            <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
+          <div (click)="abrirModal(i, 1)">{{destaq.nome}}</div>
           <div class="cardDestaque4">
             <span class="span1">R$ <span class="span2">{{destaq.preco}}</span></span>
             <ion-button color="warning" (click)="abrirModal(i, 2)">
