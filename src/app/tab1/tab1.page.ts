@@ -26,15 +26,19 @@ export class Tab1Page implements OnInit {
 
   linhaAtual: number = 0;
   intervalo: any = undefined;
+  itensCarrinho: any = 0
 
-  constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar) { }
 
-  ngOnInit(): void {
+  constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar, private storage: Storage) { }
+
+  async ngOnInit() {
     this.iniciarIntervalo()
-    this.produtos()
+    await this.produtos()
+    await this.getItens()
+    console.log(this.itensCarrinho)
   }
 
-  produtos() {
+  async produtos() {
     this.crud.produtos.read().subscribe((res: any) => {
       res.map((v: any) => {
         this.todosProdutos.push(v)
@@ -113,8 +117,9 @@ export class Tab1Page implements OnInit {
         exitAnimationDuration: 0,
         enterAnimationDuration: 0,
       })
-      dialogRef.afterClosed().subscribe(res => {
+      dialogRef.afterClosed().subscribe(async res => {
         if (res === true) {
+          await this.getItens()
           this.snake.open('Produto adicionado no seu carrinho!', 'Fechar', {
             duration: 3000
           })
@@ -123,6 +128,22 @@ export class Tab1Page implements OnInit {
     }
 
   }
+
+
+  async getItens() {
+    /// pegando todos os itens do localStorage
+    await this.storage.create();
+    let totalItens = (await this.storage.keys()).length
+    let value: any = []
+
+    for (let i = 1; i <= totalItens; i++) {
+      this.storage.get(i.toString()).then(v => {
+        value.push(v)
+      })
+      this.itensCarrinho = i
+    }
+  }
+
 }
 
 @Component({
@@ -152,7 +173,7 @@ export class ModalTab1 implements OnInit {
     }
   }
 
-  lerProdutos() {
+  async lerProdutos() {
     this.produtos = [this.data.dados]
   }
 
@@ -161,13 +182,12 @@ export class ModalTab1 implements OnInit {
   }
 
   async addCart() {
-    await this.storage.create()
-    // (await this.storage.keys()).length + 1
-    this.storage.set('0', this.produtos)
+    /// criando itens no localStorage
+    await this.storage.create();
+    let contador = (await this.storage.keys()).length + 1
+    this.storage.set(contador.toString(), this.produtos)
     this.dialogRef.close(true)
-    // let allKeys = await this.storage.keys()
-    const itemsPromises = (await this.storage.get('0'))
-    console.log(itemsPromises)
   }
+
 
 }
