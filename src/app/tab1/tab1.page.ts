@@ -27,7 +27,7 @@ export class Tab1Page implements OnInit {
   linhaAtual: number = 0;
   intervalo: any = undefined;
   itensCarrinho: any = 0
-
+  loaded = false
 
   constructor(public dialog: MatDialog, public crud: CrudService, private snake: MatSnackBar, private storage: Storage) { }
 
