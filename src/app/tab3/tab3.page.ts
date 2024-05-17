@@ -16,9 +16,9 @@ export class Tab3Page implements OnInit {
   }
 
   getData() {
-    this.crud.carrinho.read().subscribe(res => {
-      console.log(res)
-    })
+    // this.crud.carrinho.read().subscribe(res => {
+    //   console.log(res)
+    // })
   }
 
 }

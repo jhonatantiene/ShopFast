@@ -44,22 +44,22 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     this.iniciarIntervalo()
-    await this.produtos()
-    await this.getItens()
+    // await this.produtos()
+    // await this.getItens()
   }
 
-  async produtos() {
-    this.crud.produtos.read().subscribe((res: any) => {
-      res.map((v: any) => {
-        this.todosProdutos.push(v)
-        if (v.promocao == 1) {
-          this.produtosPromocoes.push(v)
-        } else if (v.promocao == 0) {
-          this.produtosDestaq.push(v)
-        }
-      })
-    })
-  }
+  // async produtos() {
+  //   this.crud.produtos.read().subscribe((res: any) => {
+  //     res.map((v: any) => {
+  //       this.todosProdutos.push(v)
+  //       if (v.promocao == 1) {
+  //         this.produtosPromocoes.push(v)
+  //       } else if (v.promocao == 0) {
+  //         this.produtosDestaq.push(v)
+  //       }
+  //     })
+  //   })
+  // }
 
   resetarIntervalo() {
     clearInterval(this.intervalo);
@@ -129,7 +129,7 @@ export class Tab1Page implements OnInit {
       })
       dialogRef.afterClosed().subscribe(async res => {
         if (res === true) {
-          await this.getItens()
+          // await this.getItens()
           this.snake.open('Produto adicionado no seu carrinho!', 'Fechar', {
             duration: 3000
           })
@@ -140,19 +140,19 @@ export class Tab1Page implements OnInit {
   }
 
 
-  async getItens() {
-    /// pegando todos os itens do localStorage
-    await this.storage.create();
-    let totalItens = (await this.storage.keys()).length
-    let value: any = []
+  // async getItens() {
+  //   /// pegando todos os itens do localStorage
+  //   await this.storage.create();
+  //   let totalItens = (await this.storage.keys()).length
+  //   let value: any = []
 
-    for (let i = 1; i <= totalItens; i++) {
-      this.storage.get(i.toString()).then(v => {
-        value.push(v)
-      })
-      this.itensCarrinho = i
-    }
-  }
+  //   for (let i = 1; i <= totalItens; i++) {
+  //     this.storage.get(i.toString()).then(v => {
+  //       value.push(v)
+  //     })
+  //     this.itensCarrinho = i
+  //   }
+  // }
 
 }
 
@@ -193,9 +193,6 @@ export class ModalTab1 implements OnInit {
 
   async addCart() {
     /// criando itens no localStorage
-    await this.storage.create();
-    let contador = (await this.storage.keys()).length + 1
-    this.storage.set(contador.toString(), this.produtos)
     this.dialogRef.close(true)
   }
 
