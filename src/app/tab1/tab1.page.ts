@@ -19,9 +19,20 @@ export class Tab1Page implements OnInit {
     { src: '/assets/img/sale.jpg' },
 
   ];
+  produtosPromocoes: any = [
+    { icon: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L' },
+    { icon: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg' },
+    { icon: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g' },
+    { icon: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
+  ]
 
-  produtosDestaq: any = []
-  produtosPromocoes: any = []
+  produtosDestaq: any = [
+    { icon: '/assets/imgProduto/po-de-cafe.jpg', preco: '19,90', nome: 'Pó de café 500g' },
+    { icon: '/assets/imgProduto/banana.png', preco: '3,90', nome: 'Banana prata' },
+    { icon: '/assets/imgProduto/Acucar.jpg', preco: '4,90', nome: 'Açucar união 1kg' },
+    { icon: '/assets/imgProduto/leite.jpg', preco: '5,90', nome: 'Leite piracanjuba 1L' }, 
+  ]
+
   todosProdutos: any = []
 
   linhaAtual: number = 0;
@@ -35,7 +46,6 @@ export class Tab1Page implements OnInit {
     this.iniciarIntervalo()
     await this.produtos()
     await this.getItens()
-    console.log(this.itensCarrinho)
   }
 
   async produtos() {
